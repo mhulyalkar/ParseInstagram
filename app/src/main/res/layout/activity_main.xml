@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,7 +10,39 @@
         android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Log out"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="7dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_marginStart="0dp"
+        android:layout_toEndOf="@+id/ivPostImage"
+        android:text="Log out" />
+
+    <EditText
+        android:id="@+id/etDescription"
+        android:layout_width="351dp"
+        android:layout_height="109dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:maxLines="5" />
+
+    <Button
+        android:id="@+id/btnTakePicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etDescription"
+        android:layout_marginTop="0dp"
+        android:text="Take Picture" />
+
+    <ImageButton
+        android:id="@+id/ivPostImage"
+        android:layout_width="332dp"
+        android:layout_height="290dp"
+        android:layout_below="@+id/btnTakePicture"
+        android:layout_marginTop="0dp" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivPostImage"
+        android:layout_marginTop="0dp"
+        android:text="Submit" />
+</RelativeLayout>
