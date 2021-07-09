@@ -10,9 +10,8 @@
         android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_toEndOf="@+id/ivPostImage"
-        android:text="Log out" />
+        android:text="Log out"
+        android:translationY="685dp" />
 
     <EditText
         android:id="@+id/etDescription"
@@ -45,4 +44,14 @@
         android:layout_below="@+id/ivPostImage"
         android:layout_marginTop="0dp"
         android:text="Submit" />
+
+    <Button
+        android:id="@+id/btnFeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/btnLogout"
+        android:text="Feed"
+        android:translationY="685dp" />
 </RelativeLayout>
