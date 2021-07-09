@@ -1,7 +1,6 @@
 package com.codepath.parseinstagram;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +18,8 @@ import java.util.List;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
 
-    private Context context;
-    private List<Post> posts;
+    private final Context context;
+    private final List<Post> posts;
 
     public PostsAdapter(Context context, List<Post> posts) {
         this.context = context;
@@ -30,7 +29,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_post, parent, false);
+        final View view = LayoutInflater.from(context).inflate(R.layout.item_post, parent, false);
         return new ViewHolder(view);
     }
 
@@ -38,10 +37,16 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     public int getItemCount() {
         return posts.size();
     }
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Post post = posts.get(position);
+        final Post post = posts.get(position);
         holder.bind(post);
+    }
+
+    public void clear() {
+        posts.clear();
+        notifyDataSetChanged();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -56,20 +61,17 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivImage = itemView.findViewById(R.id.ivImage);
             tvDescription = itemView.findViewById(R.id.tvDescription);
         }
+
         public void bind(Post post) {
             // Bind the post data to the view elements
-            Date createdAt = post.getCreatedAt();
-            String timeAgo = Post.calculateTimeAgo(createdAt);
+            final Date createdAt = post.getCreatedAt();
+            final String timeAgo = Post.calculateTimeAgo(createdAt);
             tvDescription.setText(post.getDescription());
-            tvUsername.setText(post.getUser().getUsername() +" * " + timeAgo);
-            ParseFile image = post.getImage();
+            tvUsername.setText(post.getUser().getUsername() + " * " + timeAgo);
+            final ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);
             }
         }
-    }
-    public void clear() {
-        posts.clear();
-        notifyDataSetChanged();
     }
 }

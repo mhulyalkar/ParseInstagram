@@ -16,32 +16,12 @@ public class Post extends ParseObject {
     public static final String KEY_IMAGE = "image";
     public static final String KEY_USER = "user";
 
-    public String getDescription() {
-        return getString(KEY_DESCRIPTION);
-    }
-    public void setDescription(String description) {
-        put(KEY_DESCRIPTION, description);
-    }
+    public final static String calculateTimeAgo(Date createdAt) {
 
-    public ParseFile getImage() {
-        return getParseFile(KEY_IMAGE);
-    }
-    public void setImage(ParseFile parseFile) {
-        put(KEY_IMAGE, parseFile);
-    }
-    public ParseUser getUser() {
-        return getParseUser(KEY_USER);
-    }
-    public void setUser(ParseUser user) {
-        put(KEY_USER, user);
-    }
-
-    public static String calculateTimeAgo(Date createdAt) {
-
-        int SECOND_MILLIS = 1000;
-        int MINUTE_MILLIS = 60 * SECOND_MILLIS;
-        int HOUR_MILLIS = 60 * MINUTE_MILLIS;
-        int DAY_MILLIS = 24 * HOUR_MILLIS;
+        final int SECOND_MILLIS = 1000;
+        final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
+        final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
+        final int DAY_MILLIS = 24 * HOUR_MILLIS;
 
         try {
             createdAt.getTime();
@@ -65,10 +45,33 @@ public class Post extends ParseObject {
                 return diff / DAY_MILLIS + " d";
             }
         } catch (Exception e) {
-            Log.i("Error:", "getRelativeTimeAgo failed", e);
+            Log.e("Error:", "getRelativeTimeAgo failed", e);
             e.printStackTrace();
         }
-
         return "";
+    }
+
+    public final String getDescription() {
+        return getString(KEY_DESCRIPTION);
+    }
+
+    public final void setDescription(String description) {
+        put(KEY_DESCRIPTION, description);
+    }
+
+    public final ParseFile getImage() {
+        return getParseFile(KEY_IMAGE);
+    }
+
+    public final void setImage(ParseFile parseFile) {
+        put(KEY_IMAGE, parseFile);
+    }
+
+    public final ParseUser getUser() {
+        return getParseUser(KEY_USER);
+    }
+
+    public final void setUser(ParseUser user) {
+        put(KEY_USER, user);
     }
 }
