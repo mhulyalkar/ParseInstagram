@@ -1,5 +1,6 @@
 package com.codepath.parseinstagram;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import java.util.List;
 /**
  * Can view up to 20 posts
  */
+
 public class FeedActivity extends AppCompatActivity {
     private static final String TAG = "FeedActivity";
     private RecyclerView rvPosts;
@@ -49,7 +51,15 @@ public class FeedActivity extends AppCompatActivity {
         rvPosts = findViewById(R.id.rvPosts);
         allPosts = new ArrayList<>();
         queryPosts();
-        adapter = new PostsAdapter(this, allPosts);
+        PostsAdapter.OnClickListener onClickListener = new PostsAdapter.OnClickListener() {
+            @Override
+            public void onItemClicked(int position) {
+                final Intent i = new Intent(FeedActivity.this, DetailsActivity.class);
+                i.putExtra("post", allPosts.get(position));
+                startActivity(i);
+            }
+        };
+        adapter = new PostsAdapter(this, allPosts, onClickListener);
         // set the adapter on the recycler view
         rvPosts.setAdapter(adapter);
         // set the layout manager on the recycler view

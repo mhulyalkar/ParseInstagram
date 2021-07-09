@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ParseInstagram">
+        <activity android:name=".DetailsActivity"></activity>
         <activity android:name=".FeedActivity" />
 
         <provider

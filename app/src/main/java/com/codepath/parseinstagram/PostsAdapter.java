@@ -20,10 +20,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
     private final Context context;
     private final List<Post> posts;
-
-    public PostsAdapter(Context context, List<Post> posts) {
+    private final OnClickListener clickListener;
+    public PostsAdapter(Context context, List<Post> posts, OnClickListener clickListener) {
         this.context = context;
         this.posts = posts;
+        this.clickListener = clickListener;
     }
 
     @NonNull
@@ -49,11 +50,15 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
+    public interface OnClickListener {
+        void onItemClicked(int position);
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvUsername;
-        private ImageView ivImage;
-        private TextView tvDescription;
+        private final TextView tvUsername;
+        private final ImageView ivImage;
+        private final TextView tvDescription;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,6 +77,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);
             }
+            ivImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickListener.onItemClicked(getAdapterPosition());
+                }
+            });
         }
     }
 }

@@ -13,14 +13,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 /**
  * Screen to log in.
  */
+
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private EditText etUsername;
     private EditText etPassword;
+    private Button btnSignUp;
     private Button btnLogin;
 
     @Override
@@ -30,6 +33,15 @@ public class LoginActivity extends AppCompatActivity {
 
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
+        btnSignUp = findViewById(R.id.btnSignUp);
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String username = etUsername.getText().toString();
+                final String password = etPassword.getText().toString();
+                signUp(username, password);
+            }
+        });
         btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +64,24 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 goMainActivity();
                 Toast.makeText(LoginActivity.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void signUp(String username, String password) {
+        ParseUser user = new ParseUser();
+
+        user.setUsername(username);
+        user.setPassword(password);
+
+        user.signUpInBackground(new SignUpCallback() {
+            public void done(ParseException e) {
+                if (e == null) {
+                    Toast.makeText(LoginActivity.this, "Sign up was successful", Toast.LENGTH_SHORT).show();
+                    loginUser(username, password);
+                } else {
+                    Toast.makeText(LoginActivity.this, "Sign up was not successful", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
